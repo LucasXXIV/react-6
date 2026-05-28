@@ -1,0 +1,31 @@
+'use client'; // Necessário para usar hooks do React/Next.js.
+import { useRouter } from 'next/navigation';
+
+export default function PaginaMestra() {
+    const router = useRouter();
+
+    const estiloDoBotao = "w-full py-3 my-3 rounded-lg text-white bg-blue-700";
+
+    const handleNavigate = (dado: {
+        id: number; nome: string; preco: number
+    }) => {
+        // Serializa o objeto para uma string JSON e codifica para URL, se necessário,
+        // ou passa campos simples diretamente como no exemplo abaixo.
+        // Observação: as rotas estão em `app/pages/...`, então o caminho real é
+        // `/pages/detalhe`.
+        router.push(`/pages/detalhe?id=${dado.id}&nome=${encodeURIComponent(dado.nome)}&preco=${dado.preco}`);
+    };
+    const produto = {
+        id: 123,
+        nome: 'Produto X',
+        preco: 199.99
+    };
+    return (
+        <div className='p-4'>
+            <h1>Página Mestra</h1>
+            <button className={estiloDoBotao} onClick={() => handleNavigate(produto)}>
+                Ir para a página de Detalhes do Produto
+            </button>
+        </div>
+    );
+}
